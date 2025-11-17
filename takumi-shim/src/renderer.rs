@@ -318,6 +318,12 @@ pub extern "C" fn takumi_renderer_free(ptr: *mut Renderer) {
     }
 }
 
+/// This is just here to be compatible with the [NativeFinalizer].
+#[unsafe(no_mangle)]
+pub extern  "C" fn takumi_renderer_free_void(ptr: *mut ::std::os::raw::c_void) {
+    takumi_renderer_free(ptr as *mut Renderer);
+}
+
 /// Store a persistent image in the renderer's persistent image store.
 ///
 /// This writes a copy of [data] into the renderer's persistent image store under

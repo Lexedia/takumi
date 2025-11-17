@@ -62,6 +62,9 @@ final class Style {
   /// The font weight of this style.
   final CssValue<String>? fontWeight;
 
+  /// The font family of this style.
+  final CssValue<String>? fontFamily;
+
   /// The line clamp of this style.
   final CssValue<int>? lineClamp;
 
@@ -84,6 +87,7 @@ final class Style {
     this.backgroundImage,
     this.fontSize,
     this.fontWeight,
+    this.fontFamily,
     this.lineClamp,
   });
 
@@ -113,6 +117,7 @@ final class Style {
     addCssProperty('backgroundImage', backgroundImage);
     addCssProperty('fontSize', fontSize);
     addCssProperty('fontWeight', fontWeight);
+    addCssProperty('fontFamily', fontFamily);
     addCssProperty('lineClamp', lineClamp);
 
     return cssMap;

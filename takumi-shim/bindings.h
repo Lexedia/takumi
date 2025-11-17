@@ -57,6 +57,11 @@ struct Renderer *takumi_renderer_new(void);
 void takumi_renderer_free(struct Renderer *ptr);
 
 /**
+ * This is just here to be compatible with the [NativeFinalizer].
+ */
+void takumi_renderer_free_void(void *ptr);
+
+/**
  * Store a persistent image in the renderer's persistent image store.
  *
  * This writes a copy of [data] into the renderer's persistent image store under

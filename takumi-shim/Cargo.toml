@@ -12,8 +12,8 @@ serde_json = "1.0"
 
 
 [dependencies.takumi]
-# TODO: Use the hosted version
-path = "../../upstream-takumi/takumi"
+version = "0.51.1"
+# path = "../../upstream-takumi/takumi"
 features = ["woff2", "woff", "svg", "rayon", "avif"]
 default-features = false
 

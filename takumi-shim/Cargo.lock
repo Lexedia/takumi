@@ -1740,7 +1740,9 @@ dependencies = [
 
 [[package]]
 name = "takumi"
-version = "0.51.0"
+version = "0.51.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ee97ac0f8c8f4672967819e2a211bcae5ab6cb916b31688f7946692a91c29ee"
 dependencies = [
  "color",
  "cssparser",
