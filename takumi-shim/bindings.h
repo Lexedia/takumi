@@ -69,9 +69,9 @@ void takumi_renderer_free_void(void *ptr);
  * function returns an integer status code to indicate success or failure.
  *
  * Parameters:
- * - `ptr` must be a valid `Renderer` pointer from [takumi_renderer_new].
- * - `src` must be a valid NUL-terminated C string (UTF-8) pointing to the image key.
- * - `data` must point to `data_len` bytes of image data. If `data_len > 0`, `data` must not be NULL.
+ * - [ptr] must be a valid `Renderer` pointer from [takumi_renderer_new].
+ * - [src] must be a valid NUL-terminated C string (UTF-8) pointing to the image key.
+ * - `data` must point to `data_len` bytes of image data. If `data_len > 0`, [data]must not be NULL.
  *
  * Returns:
  * - `0` on success.
@@ -96,6 +96,7 @@ int takumi_renderer_put_persistent_image(struct Renderer *ptr,
  * - [name] is an optional NUL-terminated C string naming the font family.
  * - [weight] and [style] provide optional overrides; negative weight or
  *   `u8::MAX` for style indicate "not provided".
+ * - [width] provides an optional override for font width; negative value indicates "not provided".
  *
  * Returns:
  * - `0` on success.
@@ -106,7 +107,8 @@ int takumi_renderer_load_font(struct Renderer *ptr,
                               uintptr_t data_len,
                               const char *name,
                               double weight,
-                              uint8_t style);
+                              uint8_t style,
+                              double width);
 
 /**
  * Clear all entries from the renderer's persistent image store.

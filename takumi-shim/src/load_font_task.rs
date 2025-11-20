@@ -1,19 +1,36 @@
 use takumi::GlobalContext;
+use takumi::parley::FontWidth;
 use takumi::parley::{FontWeight, fontique::FontInfoOverride};
 
 #[derive(Clone, Debug)]
 pub struct FontMetadata {
+    /// Optional font family name.
     pub name: Option<String>,
+
+    /// Optional font weight (e.g., 400.0 for normal, 700.0 for bold).
     pub weight: Option<f64>,
-    pub style: Option<u8>, // 0=normal, 1=italic, 2=oblique
+
+    /// Optional font style.
+    /// - `0` = normal
+    /// - `1` = italic
+    /// - `2` = oblique
+    pub style: Option<u8>,
+
+    /// Optional font width (e.g., 1.0 for normal, <1.0 for condensed, >1.0 for expanded).
+    pub width: Option<f64>,
 }
 
+/// Task to load fonts into the global context from provided byte buffers.
 pub struct LoadFontTask<'a> {
+    /// Mutable reference to the global context.
     pub context: &'a mut GlobalContext,
+
+    /// List of pairs to load.
     pub buffers: Vec<(FontMetadata, Vec<u8>)>,
 }
 
 impl<'a> LoadFontTask<'a> {
+    /// Creates a new LoadFontTask with the given global context.
     pub fn new(context: &'a mut GlobalContext) -> Self {
         LoadFontTask {
             context,
@@ -21,10 +38,12 @@ impl<'a> LoadFontTask<'a> {
         }
     }
 
+    /// Adds a font to be loaded with the given metadata and byte buffer.
     pub fn add_font(&mut self, metadata: FontMetadata, data: Vec<u8>) {
         self.buffers.push((metadata, data));
     }
 
+    /// Loads the fonts into the global context.
     pub fn compute(&mut self) -> Result<usize, String> {
         if self.buffers.is_empty() {
             return Ok(0);
@@ -42,7 +61,7 @@ impl<'a> LoadFontTask<'a> {
 
             let font_override = FontInfoOverride {
                 family_name: font.name.as_deref(),
-                width: None,
+                width: font.width.map(|width| FontWidth::from_ratio(width as f32)),
                 style: font_style,
                 weight: font.weight.map(|weight| FontWeight::new(weight as f32)),
                 axes: None,

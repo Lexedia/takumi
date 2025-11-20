@@ -9,17 +9,32 @@ pub fn parse_node_from_json(json_bytes: &[u8]) -> Result<NodeKind, serde_json::E
     serde_json::from_slice(json_bytes)
 }
 
+/// A task to render a node to an image.
 pub struct RenderTask<'g> {
+    /// The node to render.
     pub node: Option<NodeKind>,
+
+    /// The global context.
     pub global: &'g GlobalContext,
+
+    /// The viewport to use for rendering.
     pub viewport: Viewport,
+
+    /// The output format.
     pub format: OutputFormat,
+
+    /// The quality for lossy formats (0-100).
     pub quality: Option<u8>,
+
+    /// Whether to draw a debug border around the rendered content.
     pub draw_debug_border: bool,
+
+    /// Fetched resources to be used during rendering.
     pub fetched_resources: HashMap<Arc<str>, Arc<ImageSource>>,
 }
 
 impl RenderTask<'_> {
+    /// Creates a new RenderTask.
     pub fn new(
         node: NodeKind,
         global: &GlobalContext,
@@ -39,10 +54,12 @@ impl RenderTask<'_> {
         }
     }
 
+    /// Adds a fetched resource to be used during rendering.
     pub fn add_fetched_resource(&mut self, url: String, source: ImageSource) {
         self.fetched_resources.insert(Arc::from(url.as_str()), Arc::new(source));
     }
 
+    /// Computes the rendering task and returns the rendered image as a byte vector.
     pub fn compute(&mut self) -> Result<Vec<u8>, String> {
         let node = self
             .node

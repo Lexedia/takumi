@@ -10,15 +10,26 @@ use takumi::{
 
 use crate::renderer::AnimationOutputFormat;
 
+/// Task to render an animation from a sequence of nodes.
 pub struct RenderAnimationTask<'g> {
+    /// Optional list of nodes and their durations to render.
     pub nodes: Option<Vec<(NodeKind, u32)>>,
+
+    /// Reference to the global context.
     pub context: &'g GlobalContext,
+
+    /// Viewport settings for rendering.
     pub viewport: Viewport,
+
+    /// Output format for the animation.
     pub format: AnimationOutputFormat,
+
+    /// Whether to draw debug borders around nodes.
     pub draw_debug_border: bool,
 }
 
 impl RenderAnimationTask<'_> {
+    /// Creates a new RenderAnimationTask with the given parameters.
     pub fn new(
         nodes: Vec<(NodeKind, u32)>,
         context: &'_ GlobalContext,
@@ -35,6 +46,7 @@ impl RenderAnimationTask<'_> {
         }
     }
 
+    /// Renders the animation and returns the resulting byte buffer.
     pub fn compute(&mut self) -> Result<Vec<u8>, takumi::Error> {
         let nodes = self.nodes.take().unwrap();
 
