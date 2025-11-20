@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 /// Represents a value that can be a specific length, percentage, or automatic.
 ///

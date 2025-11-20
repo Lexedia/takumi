@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 final class Colour implements Value<String> {
   @override

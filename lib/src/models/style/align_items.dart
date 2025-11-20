@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 /// Defines how flex items are aligned along the cross axis.
 ///

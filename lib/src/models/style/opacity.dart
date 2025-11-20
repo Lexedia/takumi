@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 class Opacity implements Value<double> {
   @override

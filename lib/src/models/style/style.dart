@@ -1,13 +1,13 @@
-import 'package:takumi/src/models/style/aspect_ratio.dart';
-import 'package:takumi/src/models/style/box_sizing.dart';
-import 'package:takumi/src/models/style/colour.dart';
-import 'package:takumi/src/models/style/css_value.dart';
-import 'package:takumi/src/models/style/display.dart';
-import 'package:takumi/src/models/style/flex_direction.dart';
-import 'package:takumi/src/models/style/height.dart';
-import 'package:takumi/src/models/style/opacity.dart';
-import 'package:takumi/src/models/style/padding.dart';
-import 'package:takumi/src/models/style/width.dart';
+import 'aspect_ratio.dart';
+import 'box_sizing.dart';
+import 'colour.dart';
+import 'css_value.dart';
+import 'display.dart';
+import 'flex_direction.dart';
+import 'height.dart';
+import 'opacity.dart';
+import 'padding.dart';
+import 'width.dart';
 
 /// A style representing various CSS-like properties.
 final class Style {

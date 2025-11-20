@@ -1,5 +1,5 @@
 // css_global_keyword.dart
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 enum CssGlobalKeyword implements Value<String> {
   inherit('inherit'),

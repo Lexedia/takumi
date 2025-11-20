@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 /// The display property of a style.
 enum Display implements Value<String> {

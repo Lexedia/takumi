@@ -17,3 +17,31 @@ enum FontWeight {
 
   const FontWeight(this.weight);
 }
+
+enum FontWidth {
+  ultraCondensed(0.50),
+  extraCondensed(0.625),
+  condensed(0.75),
+  semiCondensed(0.875),
+  normal(1.0),
+  semiExpanded(1.125),
+  expanded(1.25),
+  extraExpanded(1.5),
+  ultraExpanded(2.0);
+
+  final double ratio;
+  const FontWidth(this.ratio);
+
+  static FontWidth parse(String s) => switch (s) {
+    'ultra-condensed' => .ultraCondensed,
+    'extra-condensed' => .extraCondensed,
+    'condensed' => .condensed,
+    'semi-condensed' => .semiCondensed,
+    'normal' => .normal,
+    'semi-expanded' => .semiExpanded,
+    'expanded' => .expanded,
+    'extra-expanded' => .extraExpanded,
+    'ultra-expanded' => .ultraExpanded,
+    _ => .normal,
+  };
+}

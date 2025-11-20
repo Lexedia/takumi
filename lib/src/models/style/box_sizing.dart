@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 /// Defines how the width and height of an element are calculated.
 ///

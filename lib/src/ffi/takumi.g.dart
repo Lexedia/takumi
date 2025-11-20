@@ -55,9 +55,9 @@ external void takumi_renderer_free_void(ffi.Pointer<ffi.Void> ptr);
 /// function returns an integer status code to indicate success or failure.
 ///
 /// Parameters:
-/// - `ptr` must be a valid `Renderer` pointer from [takumi_renderer_new].
-/// - `src` must be a valid NUL-terminated C string (UTF-8) pointing to the image key.
-/// - `data` must point to `data_len` bytes of image data. If `data_len > 0`, `data` must not be NULL.
+/// - [ptr] must be a valid `Renderer` pointer from [takumi_renderer_new].
+/// - [src] must be a valid NUL-terminated C string (UTF-8) pointing to the image key.
+/// - `data` must point to `data_len` bytes of image data. If `data_len > 0`, [data]must not be NULL.
 ///
 /// Returns:
 /// - `0` on success.
@@ -90,6 +90,7 @@ external int takumi_renderer_put_persistent_image(
 /// - [name] is an optional NUL-terminated C string naming the font family.
 /// - [weight] and [style] provide optional overrides; negative weight or
 /// `u8::MAX` for style indicate "not provided".
+/// - [width] provides an optional override for font width; negative value indicates "not provided".
 ///
 /// Returns:
 /// - `0` on success.
@@ -102,6 +103,7 @@ external int takumi_renderer_put_persistent_image(
     ffi.Pointer<ffi.Char>,
     ffi.Double,
     ffi.Uint8,
+    ffi.Double,
   )
 >()
 external int takumi_renderer_load_font(
@@ -111,6 +113,7 @@ external int takumi_renderer_load_font(
   ffi.Pointer<ffi.Char> name,
   double weight,
   int style,
+  double width,
 );
 
 /// Clear all entries from the renderer's persistent image store.

@@ -466,8 +466,8 @@ class Renderer implements Finalizable {
   /// The [data] parameter is the raw font bytes (WOFF2, TTF, OTF, etc.). The
   /// optional [name] tells the renderer what family name to register the font
   /// under — if omitted the font's internal name will be used. The optional
-  /// [weight] and [style] parameters let you override the font's intrinsic
-  /// weight and style; if omitted the font's own metadata is used.
+  /// [weight], [width] and [style] parameters let you override the font's intrinsic
+  /// weight, width and style specifically; if omitted the font's own metadata is used.
   ///
   /// Throws an exception if the font data is invalid or loading fails.
   ///
@@ -487,9 +487,11 @@ class Renderer implements Finalizable {
     String? name,
     FontWeight? weight,
     FontStyle? style,
+    FontWidth? width,
   }) {
     double rawWeight = weight?.weight ?? -1.0;
     int rawStyle = style?.index ?? 255;
+    double rawWidth = width?.ratio ?? -1.0;
 
     Pointer<Uint8> dataPtr = nullptr;
     Pointer<Utf8>? namePtr;
@@ -513,6 +515,7 @@ class Renderer implements Finalizable {
         namePtr?.cast<Char>() ?? nullptr.cast<Char>(),
         rawWeight,
         rawStyle,
+        rawWidth,
       );
 
       if (res != 0) {

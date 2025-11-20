@@ -1,4 +1,4 @@
-import 'package:takumi/src/models/style/value.dart';
+import 'value.dart';
 
 /// Defines the direction of flex items within a flex container.
 /// This enum determines how flex items are laid out along the main axis.

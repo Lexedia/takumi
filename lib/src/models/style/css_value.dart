@@ -1,5 +1,5 @@
-import 'package:takumi/src/models/style/length_unit.dart';
-import 'package:takumi/src/models/style/value.dart';
+import 'length_unit.dart';
+import 'value.dart';
 
 import 'css_global_keyword.dart';
 

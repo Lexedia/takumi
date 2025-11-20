@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:takumi/src/models/style/style.dart';
+import 'style/style.dart';
 
 /// A node representing any kind of node.
 sealed class Node {
