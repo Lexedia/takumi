@@ -8,10 +8,10 @@ use std::sync::{Arc, Mutex};
 use lru::LruCache;
 use once_cell::sync::Lazy;
 use serde_json;
-use takumi::parley::GenericFamily;
 use takumi::{
     GlobalContext,
     resources::{image::ImageSource, task::FetchTask},
+    parley::GenericFamily,
 };
 
 // Type alias for a shareable renderer context
