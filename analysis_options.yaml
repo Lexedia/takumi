@@ -1,5 +1,9 @@
 include: package:lints/recommended.yaml
 
+formatter:
+  page_width: 160
+  trailing_commas: preserve
+
 linter:
   rules:
     - prefer_relative_imports

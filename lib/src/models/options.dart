@@ -90,7 +90,7 @@ final class RenderAnimationOptions extends BaseRenderOptions {
 }
 
 /// The output format of the image.
-enum OutputFormat { avif, png, jpeg, raw, webp }
+enum OutputFormat { png, jpeg, raw, webp }
 
 /// The output format of the animation.
 enum AnimationOutputFormat { webp, apng }
