@@ -12,9 +12,9 @@ serde_json = "1.0"
 
 
 [dependencies.takumi]
-version = "0.52.2"
+version = "0.57.2"
 # path = "../../upstream-takumi/takumi"
-features = ["woff2", "woff", "svg", "rayon", "avif"]
+features = ["woff2", "woff", "svg", "rayon"]
 default-features = false
 
 [build-dependencies]

@@ -80,7 +80,7 @@ impl RenderTask<'_> {
         )
         .map_err(|e| match e {
             Error::InvalidViewport => format!(
-                "Invalid viewport specified, given {:#?}x{:#?}",
+                "Invalid viewport specified, given {:?}x{:?}",
                 self.viewport.width, self.viewport.height
             ),
             other => format!("Rendering failed: {:?}", other),

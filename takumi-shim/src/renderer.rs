@@ -29,7 +29,6 @@ pub enum AnimationOutputFormat {
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum OutputFormat {
     WebP,
-    Avif,
     Png,
     Jpeg,
     Raw,
@@ -39,7 +38,6 @@ impl From<OutputFormat> for takumi::rendering::ImageOutputFormat {
     fn from(format: OutputFormat) -> Self {
         match format {
             OutputFormat::WebP => takumi::rendering::ImageOutputFormat::WebP,
-            OutputFormat::Avif => takumi::rendering::ImageOutputFormat::Avif,
             OutputFormat::Png => takumi::rendering::ImageOutputFormat::Png,
             OutputFormat::Jpeg => takumi::rendering::ImageOutputFormat::Jpeg,
             OutputFormat::Raw => unreachable!("raw format should be handled separately"),
@@ -122,7 +120,6 @@ fn extract_image_options(
         .unwrap_or("png");
     let format = match format_str {
         "webp" => OutputFormat::WebP,
-        "avif" => OutputFormat::Avif,
         "jpeg" => OutputFormat::Jpeg,
         "raw" => OutputFormat::Raw,
         _ => OutputFormat::Png,
