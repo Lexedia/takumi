@@ -2,19 +2,39 @@ import 'dart:convert';
 
 import 'style/style.dart';
 
-/// A node representing any kind of node.
+/// {@template node_explanation}
+/// A node representing any kind of node in the layout tree.
+/// 
+/// Priority rules for styles sources (highest to lowest):
+/// 1. **[style]** - has the highest priority, values here override any Tailwind classes or [preset] values;
+/// 2. **[tw]** - has a medium priority, meaning these classes override [preset] but get overriden by [style];
+/// 3. **[preset]** - haw the lowest priority, those are supposed to be used when adding default styles to a node, so that [style] is free to also be used.
+/// 
+/// **Do** note that [rawStlyes] and [rawPresets] will **override** [style] and [preset] respectively.
+/// {@endtemplate}
 sealed class Node {
   /// The style this node has.
   final Style? style;
+
+  /// The tailwind classes this node has.
+  final String? tw;
+
+  /// The preset this node has.
+  final Style? preset;
 
   /// Unsafe, add raw styles.
   /// Keys must use camelCase, and not kebab-case.
   final Map<String, Object?>? rawStyle;
 
-  /// The tailwind classes this node has.
-  final String? tw;
+  /// Unsafe, add raw presets.
+  /// Keys must use camelCase, and not kebab-case.
+  final Map<String, Object?>? rawPreset;
 
-  Node({this.style, this.tw, this.rawStyle});
+
+  /// Creates a new [Node].
+  /// 
+  /// {@macro node_explanation}
+  Node({this.style, this.tw, this.preset, this.rawStyle, this.rawPreset});
 
   Map<String, Object?> toMap() => {
     'type': switch (this) {
@@ -24,6 +44,7 @@ sealed class Node {
     },
     'style': rawStyle ?? style?.toCssMap(),
     'tw': tw,
+    'preset': rawPreset ?? preset?.toCssMap(),
   };
 
   String toJson() => json.encode(toMap());

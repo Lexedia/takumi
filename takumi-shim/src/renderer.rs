@@ -10,8 +10,8 @@ use once_cell::sync::Lazy;
 use serde_json;
 use takumi::{
     GlobalContext,
-    resources::{image::ImageSource, task::FetchTask},
     parley::GenericFamily,
+    resources::{image::ImageSource, task::FetchTask},
 };
 
 // Type alias for a shareable renderer context
@@ -317,7 +317,7 @@ pub extern "C" fn takumi_renderer_free(ptr: *mut Renderer) {
 
 /// This is just here to be compatible with the [NativeFinalizer].
 #[unsafe(no_mangle)]
-pub extern  "C" fn takumi_renderer_free_void(ptr: *mut ::std::os::raw::c_void) {
+pub extern "C" fn takumi_renderer_free_void(ptr: *mut ::std::os::raw::c_void) {
     takumi_renderer_free(ptr as *mut Renderer);
 }
 
