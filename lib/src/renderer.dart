@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
 
+import 'error.dart';
 import 'models/font_style.dart';
 import 'models/node.dart';
 import 'models/options.dart';
@@ -55,8 +56,15 @@ class Renderer implements Finalizable {
   factory Renderer() {
     final ptr = takumi_renderer_new();
     if (ptr == nullptr) {
-      throw Exception('Failed to create Renderer');
+      String? cause;
+      var lastError = takumi_last_error().cast<Utf8>();
+      if (lastError != nullptr) {
+        cause = lastError.toDartString();
+      }
+
+      throw TakumiException('Failed to create Renderer', cause: cause);
     }
+
     return Renderer._(ptr);
   }
 
@@ -108,7 +116,7 @@ class Renderer implements Finalizable {
 
       if (taskId == 0) {
         final error = _getLastError();
-        throw Exception('Failed to start render: $error');
+        throw TakumiException('Failed to start render', cause: error);
       }
 
       return _pollRenderTask(taskId);
@@ -135,7 +143,7 @@ class Renderer implements Finalizable {
           return result;
         } else if (status == 2) {
           final error = _getLastError();
-          throw Exception('Render error: $error');
+          throw TakumiException('Render error while polling', cause: error);
         }
 
         await Future.delayed(const Duration(milliseconds: 10));
@@ -191,7 +199,7 @@ class Renderer implements Finalizable {
 
       if (bufPtr == nullptr) {
         final error = _getLastError();
-        throw Exception('Rendering failed: $error');
+        throw TakumiException('Synchronous rendering failed', cause: error);
       }
 
       final len = outLen.value;
@@ -243,6 +251,7 @@ class Renderer implements Finalizable {
           },
         )
         .toList();
+
     final jsonFrames = json.encode(framesMap);
 
     final jsonOptions = options.toJson();
@@ -265,7 +274,7 @@ class Renderer implements Finalizable {
 
       if (bufPtr == nullptr) {
         final error = _getLastError();
-        throw Exception('Rendering animation failed: $error');
+        throw TakumiException('Rendering a synchronous animation failed', cause: error);
       }
 
       final len = outLen.value;
@@ -321,6 +330,7 @@ class Renderer implements Finalizable {
           },
         )
         .toList();
+
     final jsonFrames = json.encode(framesMap);
 
     final jsonOptions = options.toJson();
@@ -341,7 +351,7 @@ class Renderer implements Finalizable {
 
       if (taskId == 0) {
         final error = _getLastError();
-        throw Exception('Failed to start animation render: $error');
+        throw TakumiException('Failed to start animation render', cause: error);
       }
 
       return _pollRenderTask(taskId);
@@ -389,7 +399,7 @@ class Renderer implements Finalizable {
 
       if (res != 0) {
         final error = _getLastError();
-        throw Exception('Failed to put persistent image: $error');
+        throw TakumiException('Failed to put persistent image', cause: error);
       }
     } finally {
       malloc.free(srcPtr);
@@ -472,8 +482,8 @@ class Renderer implements Finalizable {
   ///
   /// The [data] parameter is the raw font bytes (WOFF2, TTF, OTF, etc.). The
   /// optional [name] tells the renderer what family name to register the font
-  /// under — if omitted the font's internal name will be used. The optional
-  /// [weight], [width] and [style] parameters let you override the font's intrinsic
+  /// under, if omitted the font's internal name will be used.
+  /// The optional [weight], [width] and [style] parameters let you override the font's intrinsic
   /// weight, width and style specifically; if omitted the font's own metadata is used.
   ///
   /// Throws an exception if the font data is invalid or loading fails.
@@ -527,7 +537,7 @@ class Renderer implements Finalizable {
 
       if (res != 0) {
         final error = _getLastError();
-        throw Exception('Failed to load font: $error');
+        throw TakumiException('Failed to load font', cause: error);
       }
     } finally {
       if (dataPtr != nullptr) {
