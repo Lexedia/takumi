@@ -41,8 +41,7 @@ typedef Frames = List<Frame>;
 class Renderer implements Finalizable {
   static final _finalizer = NativeFinalizer(_takumiRendererFreeAddress);
 
-  static final Pointer<NativeFunction<Void Function(Pointer<Void>)>>
-  _takumiRendererFreeAddress = Native.addressOf(takumi_renderer_free_void);
+  static final Pointer<NativeFunction<Void Function(Pointer<Void>)>> _takumiRendererFreeAddress = Native.addressOf(takumi_renderer_free_void);
 
   Pointer<takumi.Renderer> _ptr;
 
@@ -51,7 +50,7 @@ class Renderer implements Finalizable {
   }
 
   /// {@macro renderer}
-  /// 
+  ///
   /// Creates a new instance of [Renderer].
   factory Renderer() {
     final ptr = takumi_renderer_new();
@@ -93,6 +92,8 @@ class Renderer implements Finalizable {
   ]) async {
     final jsonNode = node.toJson();
     final jsonOptions = options.toJson();
+    final nodeBytes = utf8.encode(jsonNode);
+    final optionsBytes = utf8.encode(jsonOptions);
     final nodePtr = jsonNode.toNativeUtf8();
     final optionsPtr = jsonOptions.toNativeUtf8();
 
@@ -100,9 +101,9 @@ class Renderer implements Finalizable {
       final taskId = takumi_renderer_render(
         _ptr,
         nodePtr.cast<UnsignedChar>(),
-        jsonNode.length,
+        nodeBytes.length,
         optionsPtr.cast<UnsignedChar>(),
-        jsonOptions.length,
+        optionsBytes.length,
       );
 
       if (taskId == 0) {
@@ -172,6 +173,8 @@ class Renderer implements Finalizable {
   Uint8List renderSync(Node node, [RenderOptions options = const .new()]) {
     final jsonNode = node.toJson();
     final jsonOptions = options.toJson();
+    final nodeBytes = utf8.encode(jsonNode);
+    final optionsBytes = utf8.encode(jsonOptions);
     final nodePtr = jsonNode.toNativeUtf8();
     final optionsPtr = jsonOptions.toNativeUtf8();
     final outLen = calloc<UintPtr>();
@@ -180,9 +183,9 @@ class Renderer implements Finalizable {
       final bufPtr = takumi_renderer_render_sync(
         _ptr,
         nodePtr.cast<UnsignedChar>(),
-        jsonNode.length,
+        nodeBytes.length,
         optionsPtr.cast<UnsignedChar>(),
-        jsonOptions.length,
+        optionsBytes.length,
         outLen,
       );
 
@@ -244,6 +247,8 @@ class Renderer implements Finalizable {
 
     final jsonOptions = options.toJson();
 
+    final framesBytes = utf8.encode(jsonFrames);
+    final optionsBytes = utf8.encode(jsonOptions);
     final framesPtr = jsonFrames.toNativeUtf8();
     final optionsPtr = jsonOptions.toNativeUtf8();
     final outLen = calloc<UintPtr>();
@@ -252,9 +257,9 @@ class Renderer implements Finalizable {
       final bufPtr = takumi_render_animation_sync(
         _ptr,
         framesPtr.cast<UnsignedChar>(),
-        jsonFrames.length,
+        framesBytes.length,
         optionsPtr.cast<UnsignedChar>(),
-        jsonOptions.length,
+        optionsBytes.length,
         outLen,
       );
 
@@ -320,6 +325,8 @@ class Renderer implements Finalizable {
 
     final jsonOptions = options.toJson();
 
+    final framesBytes = utf8.encode(jsonFrames);
+    final optionsBytes = utf8.encode(jsonOptions);
     final framesPtr = jsonFrames.toNativeUtf8();
     final optionsPtr = jsonOptions.toNativeUtf8();
 
@@ -327,9 +334,9 @@ class Renderer implements Finalizable {
       final taskId = takumi_render_animation(
         _ptr,
         framesPtr.cast<UnsignedChar>(),
-        jsonFrames.length,
+        framesBytes.length,
         optionsPtr.cast<UnsignedChar>(),
-        jsonOptions.length,
+        optionsBytes.length,
       );
 
       if (taskId == 0) {
@@ -437,7 +444,7 @@ class Renderer implements Finalizable {
   ///
   /// Calling [dispose] prevents the finalizer from running when the object is garbage collected,
   /// allowing for immediate resource cleanup instead of waiting for the GC cycle.
-  /// 
+  ///
   /// Example:
   /// ```dart
   /// final renderer = Renderer();
