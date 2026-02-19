@@ -5,6 +5,7 @@ build/
 .vscode/
 .idea/
 pubspec.lock
-!takumi-shim/
+takumi-shim/
 a.*
+assets/
 
