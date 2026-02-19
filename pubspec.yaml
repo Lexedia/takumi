@@ -1,6 +1,6 @@
 name: takumi
 description: Dart bindings for takumi, a dynamic image generator.
-version: 0.0.1-dev.3
+version: 0.0.1-dev.4
 repository: https://github.com/Lexedia/takumi.git
 publish_to: https://pub.lexedia.moe
 

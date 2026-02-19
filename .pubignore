@@ -7,5 +7,4 @@ build/
 pubspec.lock
 takumi-shim/{target,.cargo}
 a.*
-assets/
-
+assets/output*

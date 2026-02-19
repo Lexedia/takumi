@@ -1,3 +1,6 @@
+## 0.0.1-dev.4
+- Don't ignore assets either actually... (dude im so stupid)
+
 ## 0.0.1-dev.3
 - Don't ignore the crate actually...
 
