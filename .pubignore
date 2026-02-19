@@ -5,7 +5,7 @@ build/
 .vscode/
 .idea/
 pubspec.lock
-takumi-shim/
+takumi-shim/{target,.cargo}
 a.*
 assets/
 
